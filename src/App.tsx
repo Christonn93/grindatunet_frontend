@@ -1,7 +1,14 @@
+import { Routes, Route } from "react-router-dom";
+import { Layout } from "./layout/Layout";
+import { Home, NotFound } from "./pages";
+
 export const App = () => {
  return (
-  <div>
-   <h1>Hello, World!</h1>
-  </div>
+  <Routes>
+   <Route path="/" element={<Layout />}>
+    <Route index element={<Home />} />
+    <Route path="*" element={<NotFound />} />
+   </Route>
+  </Routes>
  );
 };
