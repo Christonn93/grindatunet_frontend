@@ -1,10 +1,12 @@
-import { ModeToggle } from "../buttons/ModeToggle";
+import { NgLogo } from "../logo/NgLogo";
 
 export const Header = () => {
  return (
-  <header className="bg-gray-800 text-white p-4 shadow-md flex justify-between items-center">
-   <h1 className="text-2xl">Grindatunet</h1>
-   <ModeToggle />
+  <header className="p-4 flex justify-between items-center">
+   <div className="flex items-center gap-4">
+    <NgLogo />
+    <h1 className="text-2xl">Grindatunet</h1>
+   </div>
   </header>
  );
 };
