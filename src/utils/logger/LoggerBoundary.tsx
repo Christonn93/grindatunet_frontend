@@ -38,7 +38,7 @@ export class LoggerBoundary extends Component<LoggerBoundaryProps, LoggerBoundar
  render() {
   if (this.state.hasError) {
    return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex justify-center items-center min-h-screen">
      <Card className="w-[400px] text-center shadow-lg">
       <CardHeader>
        <CardTitle className="text-destructive">Something went wrong</CardTitle>
