@@ -1,17 +1,19 @@
 import { useNavigate } from "react-router-dom";
-import useAuthStore from "../store/useAuthStore";
-import { useEffect } from "react";
+import { useAuthStore } from "../store/useAuthStore";
 
-const useAuthRedirect = () => {
+export const useAuthActions = (redirectOnLogin: string = "/user", redirectOnLogout: string = "/") => {
  const navigate = useNavigate();
- const { isAuthenticated, login } = useAuthStore();
+ const { isAuthenticated, login, logout } = useAuthStore();
 
- useEffect(() => {
-  if (!isAuthenticated) {
-   login();
-   navigate("/login");
-  }
- }, [isAuthenticated, navigate, login]);
+ const handleLogin = () => {
+  login();
+  navigate(redirectOnLogin);
+ };
+
+ const handleLogout = () => {
+  logout();
+  navigate(redirectOnLogout);
+ };
+
+ return { isAuthenticated, handleLogin, handleLogout };
 };
-
-export default useAuthRedirect;
