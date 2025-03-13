@@ -9,6 +9,7 @@ import { ProtectedRouteTemp } from "./layout/ProtectedRoute";
 import { Booking } from "./pages/authenticated/Booking";
 import { News } from "./pages/authenticated/News";
 import { Review } from "./pages/authenticated/Review";
+import PaymentConfirmation from "./pages/authenticated/PaymentConfirmation";
 
 export const App = () => {
  return (
@@ -29,6 +30,8 @@ export const App = () => {
      <Route path="/news/:id" element={<News />} />
      <Route path="/review" element={<Review />} />
      <Route path="/review/:id" element={<Review />} />
+
+     <Route path="/payment-confirmation" element={<PaymentConfirmation />} />
     </Route>
    </Route>
 
