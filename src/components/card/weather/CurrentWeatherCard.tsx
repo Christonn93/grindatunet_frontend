@@ -1,6 +1,5 @@
 import { Clock, Thermometer, Umbrella, Wind } from "lucide-react";
 import { WeatherIconSwitch } from "@/components/icons/WeatherIconSwitch";
-import { WeatherButton } from "@/components/buttons/WeatherButton";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 
 type WeatherProps = {
@@ -14,7 +13,7 @@ type WeatherProps = {
 
 export const CurrentWeatherCard = ({ temp, feelsLike, precipitation, windSpeed, windDirection, symbol }: WeatherProps) => {
  return (
-  <Card className="shadow-md border border-gray-200 p-4 rounded-xl flex-1 bg-white">
+  <Card className="shadow-md border border-gray-200 p-4 rounded-xl w-64 max-w-max flex-1 bg-white">
    <CardHeader className="flex items-center gap-2">
     <CardTitle className="text-lg font-bold flex items-center gap-1">
      <Clock size={16} /> Været nå
@@ -34,9 +33,7 @@ export const CurrentWeatherCard = ({ temp, feelsLike, precipitation, windSpeed, 
      </p>
     </div>
    </CardContent>
-   <CardFooter>
-    <WeatherButton />
-   </CardFooter>
+   <CardFooter></CardFooter>
   </Card>
  );
 };

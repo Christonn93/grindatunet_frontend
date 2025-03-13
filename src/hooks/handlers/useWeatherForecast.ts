@@ -1,4 +1,4 @@
-import { useWeather } from "../query/useWeather";
+import { useWeather } from "../query/weather/useWeather";
 
 export const useWeatherForecast = () => {
  const { data, isLoading, error } = useWeather();

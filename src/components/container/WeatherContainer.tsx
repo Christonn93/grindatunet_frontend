@@ -10,7 +10,7 @@ export const WeatherContainer = () => {
  if (!weather) return <p>No weather data available</p>;
 
  return (
-  <div className="flex flex-col gap-4 p-6">
+  <div className="flex gap-4 p-6">
    <CurrentWeatherCard
     temp={weather.temp}
     feelsLike={weather.feelsLike}

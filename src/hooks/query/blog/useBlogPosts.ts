@@ -1,4 +1,4 @@
-import { fetchPostById } from "@/service/blog/fetchPostById";
+import { fetchPostById } from "@/service/post/fetchPostById";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 

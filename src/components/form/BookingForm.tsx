@@ -1,27 +1,17 @@
-import "react-datepicker/dist/react-datepicker.css";
-import { CustomerName } from "./formFields/CustomerName";
-import { CustomerContact } from "./formFields/CustomerContact";
-import { BookingNotes } from "./formFields/BookingNotes";
-import { useFormikHandler } from "@/hooks/handlers/useFormikHandler";
-import { GuestsInformation } from "./formFields/GuestsInformation";
-import { FormButtonGroup } from "../buttons/FormButtonGroup";
-import { PriceContainer } from "../container/PriceContainer";
-import { DateTimeCard } from "./formFields/DateTimeCard";
+import { BookingDetails } from "../booking/BookingDetails";
+import { useBooking } from "@/hooks/handlers/useBooking";
+import { PaymentDialog } from "../booking/PaymentDialog";
 
 export const BookingForm = () => {
- const formik = useFormikHandler();
+ const { formData, setFormData, handleSubmit, price, isModalOpen, setIsModalOpen, isPending, error } = useBooking();
 
  return (
-  <form className="flex flex-col md:flex-row gap-6 p-6 bg-white" onSubmit={formik.handleSubmit}>
-   <div className="flex-[2] space-y-4 pl-6">
-    <CustomerName formik={formik} />
-    <CustomerContact formik={formik} />
-    <GuestsInformation formik={formik} />
-    <DateTimeCard formik={formik} />
-    <BookingNotes formik={formik} />
-    <FormButtonGroup formik={formik} />
-   </div>
-   <PriceContainer />
-  </form>
+  <div className="max-w-lg mx-auto p-6 bg-white shadow-md rounded-lg">
+   <h2 className="text-xl font-semibold mb-4 text-center">Create Booking</h2>
+
+   <BookingDetails formData={formData} setFormData={setFormData} handleSubmit={handleSubmit} isPending={isPending} error={error} />
+
+   <PaymentDialog isOpen={isModalOpen} price={price} onClose={() => setIsModalOpen(false)} />
+  </div>
  );
 };

@@ -7,7 +7,7 @@ type PrecipitationProps = {
 
 export const PrecipitationCard = ({ message }: PrecipitationProps) => {
  return (
-  <Card className="shadow-md border border-gray-200 p-4 rounded-xl w-64 flex-1 bg-white">
+  <Card className="shadow-md border border-gray-200 p-4 rounded-xl w-64 max-w-max flex-1 bg-white">
    <CardHeader className="flex items-center gap-2">
     <Umbrella size={16} />
     <CardTitle className="text-md font-bold">Nedbørvarsel</CardTitle>
