@@ -1,21 +1,49 @@
-import type React from "react";
-import { cn } from "@/lib/utils";
+import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { WelcomeContainer } from "../container/WelcomeContainer";
 import { LoginButtonGroup } from "../buttons/LoginButtonGroup";
 import { LoginButton } from "../buttons/LoginButton";
+import { useAccessToken } from "@/hooks/query/useAuth";
+import { useLogin } from "@/hooks/query/useLogin";
+import { useAuthStore } from "@/hooks/store/useAuthStore";
 
-export const LoginForm = ({ className, ...props }: React.ComponentPropsWithoutRef<"div">) => {
+export const LoginForm = () => {
+ const [email, setEmail] = useState("");
+ const [password, setPassword] = useState("");
+ const { mutate: login } = useLogin();
+ const { mutate: exchangeToken } = useAccessToken();
+ const setUser = useAuthStore((state) => state.setUser);
+
+ const handleSubmit = (e: React.FormEvent) => {
+  e.preventDefault();
+  login({ email, password });
+ };
+
+ // Handle OAuth Token Exchange after redirect
+ const handleOAuthCallback = async () => {
+  exchangeToken(undefined, {
+   onSuccess: (data) => {
+    if (typeof data.oauth_token === "string") {
+     setUser({ token: data.oauth_token });
+    }
+   },
+  });
+ };
+
  return (
-  <div className={cn("flex flex-col gap-6", className)} {...props}>
-   <form>
+  <div className="flex flex-col gap-6">
+   <form onSubmit={handleSubmit}>
     <div className="flex flex-col gap-6">
      <WelcomeContainer />
      <div className="flex flex-col gap-6">
       <div className="grid gap-2">
        <Label htmlFor="email">Epost</Label>
-       <Input id="email" type="email" placeholder="m@example.com" required className="text-black" autoComplete="off" />
+       <Input id="email" type="email" placeholder="m@example.com" required className="text-black" value={email} onChange={(e) => setEmail(e.target.value)} />
+      </div>
+      <div className="grid gap-2">
+       <Label htmlFor="password">Password</Label>
+       <Input id="password" type="password" placeholder="••••••••" required className="text-black" value={password} onChange={(e) => setPassword(e.target.value)} />
       </div>
       <LoginButton />
      </div>
@@ -25,9 +53,9 @@ export const LoginForm = ({ className, ...props }: React.ComponentPropsWithoutRe
      <LoginButtonGroup />
     </div>
    </form>
-   <div className="text-balance text-center text-xs [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary">
-    By clicking continue, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
-   </div>
+   <button onClick={handleOAuthCallback} className="text-blue-500">
+    Complete OAuth Login
+   </button>
   </div>
  );
 };

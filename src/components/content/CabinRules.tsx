@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/card";
-import { CheckCircle, Trash2, ThermometerSnowflake, Wind } from "lucide-react";
+import { CheckCircle, Trash2, Flame, ThermometerSnowflake, Wind } from "lucide-react";
 
 export const CabinRules = () => {
  return (
@@ -18,7 +18,7 @@ export const CabinRules = () => {
 
      {/* Peisovnen regler */}
      <div className="flex items-start gap-3">
-      {/* <Fire className="text-red-500 w-6 h-6" /> */}
+      <Flame className="text-red-500 w-6 h-6" />
       <p>
        <strong>Peisovnen i stua:</strong> Skal være tømt for aske og klargjort med opptenningsved for neste leietaker. Vedkurven skal være fylt opp med ved.
       </p>
@@ -50,7 +50,7 @@ export const CabinRules = () => {
 
      {/* Askehåndtering */}
      <div className="flex items-start gap-3">
-      {/* <Fire className="text-orange-500 w-6 h-6" /> */}
+      <Flame className="text-orange-500 w-6 h-6" />
       <p>
        <strong>Askehåndtering:</strong> Aske fra ovnen tømmes i tønne merket "Aske" ved avreise. Ved ankomst flyttes asken over i en søppelpose og kastes i container nede ved hovedvei.
       </p>

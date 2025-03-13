@@ -1,7 +1,7 @@
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FormikProps } from "formik";
 import { BookingFormValues } from "@/utils/initialValues/initialBookingFormValues";
+import { DateInput, TimeField } from "@/components/ui/datefield-rac";
 
 export const TimePicker = ({ labelText, formik, fieldName }: { labelText: string; formik: FormikProps<BookingFormValues>; fieldName: keyof BookingFormValues }) => {
  const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -9,10 +9,9 @@ export const TimePicker = ({ labelText, formik, fieldName }: { labelText: string
  };
 
  return (
-  <div>
-   <Label htmlFor={fieldName}>{labelText}</Label>
-   <Input id={fieldName} type="time" value={String(formik.values[fieldName] ?? "")} onChange={handleTimeChange} />
-   {formik.touched[fieldName] && formik.errors[fieldName] && <div className="text-red-500 text-sm">{String(formik.errors[fieldName])}</div>}
-  </div>
+  <TimeField locale="nb-NO" hourCycle="h23" className="*:not-first:mt-2">
+   <Label className="text-foreground text-sm font-medium">Tidspunkt</Label>
+   <DateInput />
+  </TimeField>
  );
 };

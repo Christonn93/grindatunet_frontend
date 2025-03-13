@@ -1,15 +1,31 @@
 import { Routes, Route } from "react-router-dom";
-import { Layout } from "./layout/Layout";
-import { Home, NotFoundPage, UserPage } from "./pages";
+import { AuthLayout } from "./layout/AuthLayout";
+import { UnAuthLayout } from "./layout/UnAuthLayout";
+import { Home } from "./pages/Home";
+import { UserPage } from "./pages/authenticated/UserPage";
+import { NotFoundPage } from "./pages/NotFound";
+import { Login } from "./pages/unauthenticated/Login";
+import { ProtectedRouteTemp } from "./layout/ProtectedRoute";
 
 export const App = () => {
  return (
   <Routes>
-   <Route path="/" element={<Layout />}>
-    <Route index element={<Home />} />
-    <Route path="/minside" element={<UserPage />} />
-    <Route path="*" element={<NotFoundPage />} />
+   {/* Unauthenticated Routes */}
+   <Route element={<UnAuthLayout />}>
+    <Route path="/" element={<Home />} />
+    <Route path="/login" element={<Login />} />
    </Route>
+
+   {/* Authenticated Routes (Temporarily Unprotected) */}
+   <Route element={<ProtectedRouteTemp />}>
+    <Route element={<AuthLayout />}>
+     <Route path="/user" element={<UserPage />} />
+     <Route path="/user/:id" element={<UserPage />} />
+    </Route>
+   </Route>
+
+   {/* Catch-all Route */}
+   <Route path="*" element={<NotFoundPage />} />
   </Routes>
  );
 };
