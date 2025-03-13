@@ -1,9 +1,7 @@
+import { axiosInstance } from "@/service/axiosInstance";
 import { useQuery } from "@tanstack/react-query";
-import { useAxios } from "../axios/useAxios";
 
 export const useFetchMedia = () => {
- const axiosInstance = useAxios();
-
  return useQuery({
   queryKey: ["media"],
   queryFn: async () => {
