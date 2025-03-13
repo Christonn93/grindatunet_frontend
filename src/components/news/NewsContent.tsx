@@ -1,4 +1,4 @@
-import { NewsItem } from "@/components/news/NewsItem";
+import { NewsItem, NewsItemProps } from "@/components/news/NewsItem";
 import { NewsSkeletonLoader } from "@/components/news/NewsSkeletonLoader";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertCircle, RefreshCw } from "lucide-react";
@@ -38,8 +38,8 @@ export function NewsContent() {
 
  return (
   <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-   {data.map((newsItem) => (
-    <NewsItem key={newsItem.id} news={newsItem} />
+   {data.map((newsItem: NewsItemProps) => (
+    <NewsItem key={newsItem.news.id} news={newsItem.news} />
    ))}
   </div>
  );

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
-interface NewsItemProps {
+export interface NewsItemProps {
  news: {
   id: string;
   title: string;
@@ -17,7 +17,6 @@ interface NewsItemProps {
 
 export function NewsItem({ news }: NewsItemProps) {
  const formattedDate = formatDistanceToNow(new Date(news.date), { addSuffix: true });
- const excerpt = news.content.replace(/<*>/g, "").slice(0, 150) + (news.content.length > 150 ? "..." : "");
 
  return (
   <Card className="h-full flex flex-col hover:shadow-lg transition-shadow bg-white">
