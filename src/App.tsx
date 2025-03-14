@@ -5,7 +5,7 @@ import { Home } from "./pages/Home";
 import { UserPage } from "./pages/authenticated/UserPage";
 import { NotFoundPage } from "./pages/NotFound";
 import { Login } from "./pages/unauthenticated/Login";
-import { ProtectedRouteTemp } from "./layout/ProtectedRoute";
+import { ProtectedRoute } from "./layout/ProtectedRoute";
 import { Booking } from "./pages/authenticated/Booking";
 import { News } from "./pages/authenticated/News";
 import { Review } from "./pages/authenticated/Review";
@@ -16,12 +16,12 @@ export const App = () => {
   <Routes>
    {/* Unauthenticated Routes */}
    <Route element={<UnAuthLayout />}>
-    <Route path="/home" element={<Home />} />
-    <Route index element={<Login />} />
+    <Route index element={<Home />} />
+    <Route path="/login" element={<Login />} />
    </Route>
 
    {/* Authenticated Routes (Temporarily Unprotected) */}
-   <Route element={<ProtectedRouteTemp />}>
+   <Route element={<ProtectedRoute />}>
     <Route element={<AuthLayout />}>
      <Route path="/minside" element={<UserPage />} />
      <Route path="/booking" element={<Booking />} />

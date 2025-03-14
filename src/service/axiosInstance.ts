@@ -1,30 +1,34 @@
+import { isTokenExpired } from "@/utils/validation/token";
 import axios from "axios";
 
 export const axiosInstance = axios.create({
- baseURL: import.meta.env.VITE_WP_BASE_URL,
- headers: {
-  "Content-Type": "application/json",
-  Accept: "application/json",
- },
+ baseURL: `${import.meta.env.VITE_WP_BASE_URL}`,
 });
 
-axiosInstance.interceptors.request.use(
- (config) => {
-  const token = localStorage.getItem("authToken");
-  if (token) {
-   config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
- },
- (error) => Promise.reject(error)
-);
+axiosInstance.interceptors.request.use(async (config) => {
+ let token = localStorage.getItem("token");
+ const refreshToken = localStorage.getItem("refresh_token");
 
-axiosInstance.interceptors.response.use(
- (response) => response,
- (error) => {
-  if (error.response?.status === 401) {
-   console.error("Unauthorized - Redirecting to login...");
+ if (token && isTokenExpired(token)) {
+  try {
+   const response = await axios.post("/refresh", { refresh_token: refreshToken });
+
+   if (response.data?.token) {
+    token = response.data.token;
+    localStorage.setItem("token", response.data.token);
+   } else {
+    throw new Error("Failed to refresh token");
+   }
+  } catch (error) {
+   console.error("Error refreshing token:", error);
+   localStorage.removeItem("token");
+   localStorage.removeItem("refresh_token");
+   window.location.href = "/login"; // Redirect to login
   }
-  return Promise.reject(error);
  }
-);
+
+ if (token) {
+  config.headers["Authorization"] = `Bearer ${token}`;
+ }
+ return config;
+});
