@@ -1,5 +1,5 @@
-import { Footer, Header, Main } from "@/components/layout";
-import { BottomNav } from "@/components/nav/BottomNav";
+import { BottomNav } from "@/components/common/nav/BottomNav";
+import { Footer, Header, Main } from "./ui/default";
 
 export const DefaultLayout = () => {
  return (

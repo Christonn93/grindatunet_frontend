@@ -1,8 +1,8 @@
 import { Outlet } from "react-router-dom";
 import { SidebarProvider } from "@/providers/SidebarProvider";
-import { DashboardHeader } from "@/components/dashboard/DashboardHeader";
-import { DashboardSidebar } from "@/components/dashboard/DashboardSidebar";
-import { DashboardFooter } from "@/components/dashboard/DashboardFooter";
+import { DashboardHeader } from "./ui/admin/DashboardHeader";
+import { DashboardSidebar } from "./ui/admin/DashboardSidebar";
+import { DashboardFooter } from "./ui/admin/DashboardFooter";
 
 export const AdminLayout = () => {
  return (

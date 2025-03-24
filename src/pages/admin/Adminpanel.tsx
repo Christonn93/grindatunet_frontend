@@ -1,9 +1,7 @@
-import { MainHeading } from "@/components/text/MainHeading";
-
 export const AdminPanel = () => {
  return (
   <div>
-   <MainHeading text="Admin panel" />
+   <h1>Admin Panel</h1>
   </div>
  );
 };
