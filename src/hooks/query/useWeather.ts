@@ -1,4 +1,4 @@
-import { fetchWeather } from "@/service/fetchWeather";
+import { fetchWeather } from "@/service/weather/fetchWeather";
 import { useQuery } from "@tanstack/react-query";
 
 export const useWeather = () => {

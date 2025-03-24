@@ -1,42 +1,46 @@
 import { create } from "zustand";
+import { DateRange } from "react-day-picker";
 
-// Define the booking state type
 type BookingState = {
  name: string;
+ email: string;
+ phone: string;
  guests: number;
- startDate: Date | null;
- endDate: Date | null;
- startTime: string;
- endTime: string;
- purpose: "pleasure" | "business";
- termsAccepted: boolean;
- showModal: boolean;
- setBookingDetails: (key: keyof BookingState, value: unknown) => void;
- resetBooking: () => void;
+ price: number;
+ range: DateRange | undefined;
+
+ setName: (value: string) => void;
+ setEmail: (value: string) => void;
+ setPhone: (value: string) => void;
+ setGuests: (value: number) => void;
+ setPrice: (value: number) => void;
+ setRange: (range: DateRange | undefined) => void;
+
+ reset: () => void;
 };
 
 export const useBookingStore = create<BookingState>((set) => ({
  name: "",
+ email: "",
+ phone: "",
  guests: 1,
- startDate: null,
- endDate: null,
- startTime: "15:00",
- endTime: "12:00",
- purpose: "pleasure",
- termsAccepted: false,
- showModal: false,
+ price: 0,
+ range: undefined,
 
- setBookingDetails: (key, value) => set((state) => ({ ...state, [key]: value })),
- resetBooking: () =>
+ setName: (value) => set({ name: value }),
+ setEmail: (value) => set({ email: value }),
+ setPhone: (value) => set({ phone: value }),
+ setGuests: (value) => set({ guests: value }),
+ setPrice: (value) => set({ price: value }),
+ setRange: (range) => set({ range }),
+
+ reset: () =>
   set({
    name: "",
+   email: "",
+   phone: "",
    guests: 1,
-   startDate: null,
-   endDate: null,
-   startTime: "15:00",
-   endTime: "12:00",
-   purpose: "pleasure",
-   termsAccepted: false,
-   showModal: false,
+   price: 0,
+   range: undefined,
   }),
 }));

@@ -1,35 +1,63 @@
-import { useBookingStore } from "../store/useBookingStore";
-import { useBookingActions } from "./useBookingActions";
-import { usePriceCalculation } from "./usePriceCalculation";
+import { useState } from "react";
+import { useCreateBooking } from "../query/api/bookings";
 
 export const useBooking = () => {
- const { name, guests, startDate, endDate, startTime, endTime, purpose, termsAccepted, showModal, setBookingDetails, resetBooking } = useBookingStore();
+ const [formData, setFormData] = useState({
+  name: "",
+  email: "",
+  phone: "",
+  guests: 1,
+  checkin_date: "",
+  checkout_date: "",
+ });
 
- const { calculatePrice } = usePriceCalculation();
- const { handleConfirm, handlePayment } = useBookingActions();
+ const [dateRange, setDateRange] = useState<[Date | null, Date | null]>([null, null]);
+ const [price, setPrice] = useState<number | null>(null);
+ const [bookingId, setBookingId] = useState<number | null>(null);
+ const [isModalOpen, setIsModalOpen] = useState(false);
+ const [error, setError] = useState<string | null>(null);
+
+ const { mutate, isPending, isSuccess } = useCreateBooking();
+
+ const handleDateChange = (selectedRange: [Date, Date]) => {
+  if (selectedRange) {
+   setDateRange(selectedRange);
+   setFormData((prev) => ({
+    ...prev,
+    checkin_date: selectedRange[0].toISOString().split("T")[0],
+    checkout_date: selectedRange[1]?.toISOString().split("T")[0] || selectedRange[0].toISOString().split("T")[0],
+   }));
+  }
+ };
+
+ const handleSubmit = (e: React.FormEvent) => {
+  e.preventDefault();
+  setError(null); // Clear previous errors
+  mutate(formData, {
+   onSuccess: (response) => {
+    setPrice(response.price);
+    setBookingId(response.booking_id);
+    setIsModalOpen(true);
+   },
+   onError: (err) => {
+    console.error("Booking Error:", err);
+    setError("Failed to create booking. Please try again.");
+   },
+  });
+ };
 
  return {
-  name,
-  setName: (value: string) => setBookingDetails("name", value),
-  guests,
-  setGuests: (value: number) => setBookingDetails("guests", value),
-  startDate,
-  setStartDate: (value: Date | null) => setBookingDetails("startDate", value),
-  endDate,
-  setEndDate: (value: Date | null) => setBookingDetails("endDate", value),
-  startTime,
-  setStartTime: (value: string) => setBookingDetails("startTime", value),
-  endTime,
-  setEndTime: (value: string) => setBookingDetails("endTime", value),
-  purpose,
-  setPurpose: (value: "pleasure" | "business") => setBookingDetails("purpose", value),
-  termsAccepted,
-  setTermsAccepted: (value: boolean) => setBookingDetails("termsAccepted", value),
-  showModal,
-  setShowModal: (value: boolean) => setBookingDetails("showModal", value),
-  calculatePrice,
-  handleConfirm,
-  handlePayment,
-  resetBooking,
+  formData,
+  setFormData,
+  handleDateChange,
+  handleSubmit,
+  dateRange,
+  price,
+  bookingId,
+  isModalOpen,
+  setIsModalOpen,
+  isPending,
+  isSuccess,
+  error,
  };
 };

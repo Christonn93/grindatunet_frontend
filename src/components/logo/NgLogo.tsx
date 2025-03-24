@@ -1,5 +1,5 @@
-import Logo from "../../assets/ng.jpg";
+import Logo from "../../assets/GT_LOGO.png";
 
 export const NgLogo = () => {
- return <img src={Logo} alt="Next.js Logo" className="w-13 h-8" />;
+ return <img src={Logo} alt="Next.js Logo" className="w-auto h-8 md:h-12" />;
 };

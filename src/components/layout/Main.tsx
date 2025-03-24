@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 
 export const Main = () => {
  return (
-  <main className="flex-1 p-4 m-5">
+  <main className="flex flex-1 w-full flex-col px-10 py-10 bg-gray-100">
    <Outlet />
   </main>
  );

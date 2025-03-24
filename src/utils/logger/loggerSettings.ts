@@ -5,12 +5,14 @@ export type LoggerSettings = {
  levels: Record<LogLevel, boolean>;
 };
 
+const isDebug = import.meta.env.VITE_DEBUG === "true";
+
 export const defaultSettings: LoggerSettings = {
- loggingEnabled: true,
+ loggingEnabled: isDebug,
  levels: {
-  info: true,
+  info: isDebug,
   error: true,
-  warn: true,
-  debug: false,
+  warn: isDebug,
+  debug: isDebug,
  },
 };

@@ -1,4 +1,4 @@
-import { loggerSettings } from "@/service/logger.service";
+import { loggerSettings } from "@/service/utils/logger.service";
 import { loggerEmojis } from "./loggerEmojis";
 import { LogLevel } from "./loggerSettings";
 import { logMessage } from "./logMessage";

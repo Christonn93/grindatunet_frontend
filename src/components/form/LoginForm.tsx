@@ -1,33 +1,46 @@
-import type React from "react";
-import { cn } from "@/lib/utils";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { WelcomeContainer } from "../container/WelcomeContainer";
-import { LoginButtonGroup } from "../buttons/LoginButtonGroup";
-import { LoginButton } from "../buttons/LoginButton";
+import { useLogin } from "@/hooks/query/auth/useLogin";
+import { useState } from "react";
+import { FormWrapper } from "../wrappers/FormWrapper";
+import { FormGroup } from "./FormGroup";
+import { LegalNotice } from "../notice/LegalNotice";
 
-export const LoginForm = ({ className, ...props }: React.ComponentPropsWithoutRef<"div">) => {
+export const LoginForm = () => {
+ const [username, setUsername] = useState("");
+ const [password, setPassword] = useState("");
+ const [rememberMe, setRememberMe] = useState(false);
+
+ const loginMutation = useLogin();
+
+ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  loginMutation.mutate({ username, password });
+ };
+
  return (
-  <div className={cn("flex flex-col gap-6", className)} {...props}>
-   <form>
-    <div className="flex flex-col gap-6">
-     <WelcomeContainer />
-     <div className="flex flex-col gap-6">
-      <div className="grid gap-2">
-       <Label htmlFor="email">Epost</Label>
-       <Input id="email" type="email" placeholder="m@example.com" required className="text-black" autoComplete="off" />
-      </div>
-      <LoginButton />
-     </div>
-     <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
-      <span className="relative z-10 bg-background px-2">Or</span>
-     </div>
-     <LoginButtonGroup />
-    </div>
-   </form>
-   <div className="text-balance text-center text-xs [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary">
-    By clicking continue, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
-   </div>
-  </div>
+  <>
+   <FormWrapper
+    onSubmit={handleSubmit}
+    formHeader="Logg inn"
+    buttonText="Login"
+    isSubmitting={loginMutation.isPending}
+    submittingText="Logging in..."
+    isError={!!loginMutation.isError}
+    errorText="Invalid credentials"
+   >
+    <FormGroup label="Brukernavn">
+     <input type="text" className="p-2 border rounded-md w-full" placeholder="Skriv inn brukernavn" value={username} onChange={(e) => setUsername(e.target.value)} required />
+    </FormGroup>
+
+    <FormGroup label="Passord">
+     <input type="password" className="p-2 border rounded-md w-full" placeholder="Skriv inn passord" value={password} onChange={(e) => setPassword(e.target.value)} required />
+    </FormGroup>
+
+    <FormGroup label="Husk meg">
+     <input type="checkbox" className="h-5 w-5" checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} />
+    </FormGroup>
+   </FormWrapper>
+
+   <LegalNotice privacyPolicyLink="/privacy-policy" termsLink="/terms" />
+  </>
  );
 };

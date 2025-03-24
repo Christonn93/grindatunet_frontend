@@ -7,40 +7,40 @@
 :root {
   --background: oklch(0.97 0.02 80);
   --foreground: oklch(0.15 0.03 270);
-  
+
   --card: oklch(0.95 0.02 80);
   --card-foreground: oklch(0.2 0.03 270);
-  
+
   --popover: oklch(0.97 0.02 80);
   --popover-foreground: oklch(0.15 0.03 270);
-  
+
   --primary: oklch(0.7 0.23 45);  /* #ff6600 */
   --primary-foreground: oklch(0.98 0.01 90);
-  
+
   --secondary: oklch(0.65 0.22 10); /* #f63d5e */
   --secondary-foreground: oklch(0.98 0.02 270);
-  
+
   --muted: oklch(0.55 0.18 320); /* #c4438c */
   --muted-foreground: oklch(0.98 0.02 270);
-  
+
   --accent: oklch(0.55 0.18 270); /* #7d5398 */
   --accent-foreground: oklch(0.98 0.02 90);
-  
+
   --destructive: oklch(0.6 0.22 30); /* Strong Red-Orange */
   --destructive-foreground: oklch(0.98 0.01 270);
-  
+
   --border: oklch(0.85 0.02 270);
   --input: oklch(0.85 0.02 270);
   --ring: oklch(0.7 0.02 270);
-  
+
   --chart-1: oklch(0.65 0.23 45);  /* #ff6600 */
   --chart-2: oklch(0.65 0.22 10);  /* #f63d5e */
   --chart-3: oklch(0.55 0.18 320); /* #c4438c */
   --chart-4: oklch(0.55 0.18 270); /* #7d5398 */
   --chart-5: oklch(0.45 0.15 240); /* #405481 */
-  
+
   --radius: 0.625rem;
-  
+
   --sidebar: oklch(0.95 0.02 80);
   --sidebar-foreground: oklch(0.15 0.03 270);
   --sidebar-primary: oklch(0.7 0.23 45);
@@ -54,38 +54,38 @@
 .dark {
   --background: oklch(0.15 0.03 270);
   --foreground: oklch(0.98 0.01 90);
-  
+
   --card: oklch(0.15 0.03 270);
   --card-foreground: oklch(0.98 0.01 90);
-  
+
   --popover: oklch(0.15 0.03 270);
   --popover-foreground: oklch(0.98 0.01 90);
-  
+
   --primary: oklch(0.98 0.01 90);
   --primary-foreground: oklch(0.7 0.23 45);
-  
+
   --secondary: oklch(0.3 0.02 270);
   --secondary-foreground: oklch(0.98 0.01 90);
-  
+
   --muted: oklch(0.3 0.02 270);
   --muted-foreground: oklch(0.7 0.02 270);
-  
+
   --accent: oklch(0.3 0.02 270);
   --accent-foreground: oklch(0.98 0.01 90);
-  
+
   --destructive: oklch(0.45 0.22 30);
   --destructive-foreground: oklch(0.98 0.01 90);
-  
+
   --border: oklch(0.3 0.02 270);
   --input: oklch(0.3 0.02 270);
   --ring: oklch(0.7 0.02 270);
-  
+
   --chart-1: oklch(0.55 0.18 320);
   --chart-2: oklch(0.6 0.22 10);
   --chart-3: oklch(0.55 0.18 320);
   --chart-4: oklch(0.55 0.18 270);
   --chart-5: oklch(0.45 0.15 240);
-  
+
   --sidebar: oklch(0.2 0.02 270);
   --sidebar-foreground: oklch(0.98 0.01 90);
   --sidebar-primary: oklch(0.45 0.18 320);
@@ -95,7 +95,6 @@
   --sidebar-border: oklch(0.3 0.02 270);
   --sidebar-ring: oklch(0.45 0.02 270);
 }
-
 
 @theme inline {
   --color-background: var(--background);
@@ -145,7 +144,37 @@
   }
 }
 
-
 input::placeholder {
   color: black !important;
+}
+
+/* ✅ Ensure the calendar does not overflow */
+
+/* ✅ Adjust selected date styles for better readability */
+.custom-calendar .rdp-day_range_start,
+.custom-calendar .rdp-day_range_end {
+  background-color: var(--range-background, #ff8c00) !important;
+  color: var(--range-foreground, #ffffff) !important;
+}
+
+.custom-calendar .rdp-day_range_middle {
+  background-color: var(--range-background, #ffaf50) !important;
+  color: var(--range-foreground, #ffffff) !important;
+}
+
+/* ✅ Mobile-specific adjustments */
+@media (max-width: 640px) {
+  .custom-calendar {
+    max-width: 100%;
+    padding: 8px;
+  }
+
+  .rdp-caption {
+    font-size: 0.9rem; /* ✅ Reduce font size to fit */
+  }
+
+  .rdp-day {
+    font-size: 0.8rem; /* ✅ Smaller text for better spacing */
+    padding: 6px; /* ✅ Prevents overcrowding */
+  }
 }
